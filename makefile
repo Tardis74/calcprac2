@@ -1,6 +1,6 @@
 # Компилятор и флаги
 FC = gfortran
-FFLAGS = -Wall -Wextra -O2 -std=f2008 -fopenmp
+FFLAGS = -O2 -fopenmp
 
 # Исполняемые файлы
 INTERPOL = interpol
@@ -165,4 +165,4 @@ clean:
 	rm -f uniform.dat chebyshev.dat
 	rm -f res_uniform.dat res_chebyshev.dat
 	rm -f exact_*.dat
-	rm -f *_plot.png
+	rm -f *_plot.png	
