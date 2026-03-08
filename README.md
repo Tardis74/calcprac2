@@ -20,5 +20,6 @@ make plot
 
 Только для интерполяции
 ```bash
+make interpol
 ./interpol [uniform/chebyshev}
 ```
