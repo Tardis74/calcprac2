@@ -33,10 +33,12 @@ program generate
         x_nodes(i) = a + (b - a) * real(i, dp) / real(n, dp)
      end do
   case ('chebyshev')
-     do i = 0, n
-        x_nodes(i) = cos( (2.0_dp * real(i, dp) + 1.0_dp) * acos(-1.0_dp) / (2.0_dp * real(n, dp) + 2.0_dp) )
-        x_nodes(i) = (a + b) / 2.0_dp + (b - a) / 2.0_dp * x_nodes(i)
-     end do
+	do i = 0, n
+		! Вычисляем в порядке возрастания: используем индекс (n - i)
+		x_nodes(i) = cos( (2.0_dp * real(n - i, dp) + 1.0_dp) * acos(-1.0_dp) / (2.0_dp * real(n, dp) + 2.0_dp) )
+		! Масштабирование на [a, b]
+		x_nodes(i) = (a + b) / 2.0_dp + (b - a) / 2.0_dp * x_nodes(i)
+   	end do
   case default
      write(*,*) "Ошибка: первый аргумент должен быть 'uniform' или 'chebyshev'"
      stop

@@ -52,13 +52,12 @@ program main
 				x_nodes(i) = a + (b - a) * (i-1) / n
 			end do
 		case ('chebyshev')
-			do i = 1, n+1
-				!Чебышевские узлы на [-1, 1]
-				x_nodes(i) = cos( (2.0_dp * real(i-1, dp) + 1.0_dp) * acos(-1.0_dp) / (2.0_dp * real(n, dp) + 2.0_dp) )
-				!масштабирование на [a, b]
-				x_nodes(i) = (a + b) / 2.0_dp + (b - a) / 2.0_dp * x_nodes(i)
-			end do
-		end select
+			do i = 1, n+1   ! здесь i от 1 до n+1, но в формулах удобнее использовать 0..n
+			! Используем индекс (n - (i-1)) = n - i + 1
+			x_nodes(i) = cos( (2.0_dp * real(n - i + 1, dp) + 1.0_dp) * acos(-1.0_dp) / (2.0_dp * real(n, dp) + 2.0_dp) )
+			x_nodes(i) = (a + b) / 2.0_dp + (b - a) / 2.0_dp * x_nodes(i)
+		end do
+	end select
 
 	!точки для вывода
 	n_prime = q * n
